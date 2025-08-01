@@ -28,8 +28,34 @@ addBookToLibrary("test3", "test3", 10, true);
 
 function displayBook() {
     myLibrary.forEach((book) => {
-        console.log(book);
+        showBook(book);
     });
 };
+
+const tBody = document.querySelector("tbody");
+
+function showBook(book) {
+    const tr = document.createElement("tr");
+    const title = document.createElement("td");
+    title.textContent = book.title;
+    
+    const author = document.createElement("td");
+    author.textContent = book.author;
+    const pages = document.createElement("td");
+    pages.textContent = book.pages;
+    const haveRead = document.createElement("td");
+    if (book.haveRead) {
+        haveRead.textContent = "YES";
+    }
+    else {
+        haveRead.textContent = "NO";
+    }
+    tr.append(title);
+    tr.append(author);
+    tr.append(pages);
+    tr.append(haveRead);
+
+    tBody.append(tr);
+}
 
 displayBook();
