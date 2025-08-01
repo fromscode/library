@@ -21,3 +21,15 @@ function addBookToLibrary(title, author, pages, haveRead) {
     const book = new Book(title, author, pages, haveRead);
     myLibrary.push(book);
 }
+
+addBookToLibrary("test", "test", 10, true);
+addBookToLibrary("test2", "test2", 10, true);
+addBookToLibrary("test3", "test3", 10, true);
+
+function displayBook() {
+    myLibrary.forEach((book) => {
+        console.log(book);
+    });
+};
+
+displayBook();
