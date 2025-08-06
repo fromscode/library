@@ -23,7 +23,7 @@ function addBookToLibrary(title, author, pages, haveRead) {
 }
 
 addBookToLibrary("test", "test", 10, true);
-addBookToLibrary("test2", "test2", 10, true);
+addBookToLibrary("test2", "test2", 10, false);
 addBookToLibrary("test3", "test3", 10, true);
 
 function displayBook() {
@@ -59,3 +59,35 @@ function showBook(book) {
 }
 
 displayBook();
+
+const addBookButton = document.querySelector("#add-book");
+
+addBookButton.addEventListener('click', () => {
+    const form = document.querySelector("form");
+    form.style.display = 'block';
+})
+
+const formSubmitButton = document.querySelector("form button");
+
+formSubmitButton.addEventListener('click', () => {
+    event.preventDefault();
+    const author = document.querySelector("#author");
+    const title = document.querySelector("#title");
+    const pages = document.querySelector("#pages");
+    
+    const read = document.querySelector('input[name="read"]:checked');
+    const readStatus  = read.value === "true" ? true : false;
+
+    addBookToLibrary(title.value, author.value, pages.value, readStatus);
+
+    tBody.textContent = null;
+
+    const form = document.querySelector("form");
+    author.value = "";
+    title.value = "";
+    pages.value = "";
+    read.checked = false;
+    form.style.display = 'none';
+
+    displayBook();
+})
