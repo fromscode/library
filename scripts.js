@@ -18,6 +18,11 @@ function Book(title, author, pages, haveRead) {
     };
 }
 
+Book.prototype.changeRead = function() {
+    this.haveRead = !this.haveRead;
+    console.log("test");
+};
+
 function addBookToLibrary(title, author, pages, haveRead) {
     const book = new Book(title, author, pages, haveRead);
     myLibrary.push(book);
@@ -36,13 +41,29 @@ function displayBook() {
     });
 
 
-    const removeButtonAll = document.querySelectorAll("tr button");
+    const removeButtonAll = document.querySelectorAll(".remove-btn");
 
     removeButtonAll.forEach(button => {
         button.addEventListener('click', () => {
             const bookId = button.dataset.id;
             console.log(bookId);
             myLibrary = myLibrary.filter((book) => book.id != bookId);
+            displayBook();
+        });
+    });
+
+
+    const actionButtonAll = document.querySelectorAll(".action-btn");
+
+    actionButtonAll.forEach(button => {
+        button.addEventListener('click', () => {
+            const bookId = button.dataset.id;
+            for (const book of myLibrary) {
+                if (book.id === bookId) {
+                    book.changeRead();
+                    break;
+                }
+            }
             displayBook();
         });
     });
@@ -65,15 +86,32 @@ function showBook(book) {
     else {
         haveRead.textContent = "NO";
     }
+
+    const actionButton = document.createElement("button");
+    actionButton.type = "button";
+    actionButton.textContent = "Read / Unread";
+    actionButton.dataset.id = book.id;
+    actionButton.className = "action-btn";
+
+    const actionCell  = document.createElement("td");
+    actionCell.appendChild(actionButton);
+
+
     const removeButton = document.createElement("button");
     removeButton.type = "button";
     removeButton.textContent = "Remove";
+    removeButton.className = "remove-btn";
     removeButton.dataset.id = book.id;
+
+    const removeCell  = document.createElement("td");
+    removeCell.appendChild(removeButton);
+    
     tr.append(title);
     tr.append(author);
     tr.append(pages);
     tr.append(haveRead);
-    tr.append(removeButton)
+    tr.append(actionCell);
+    tr.append(removeCell);
 
     tBody.append(tr);
 }
