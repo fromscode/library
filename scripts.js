@@ -1,27 +1,53 @@
 let myLibrary = [];
 
-function Book(title, author, pages, haveRead) {
-    if (!new.target) {
-        throw Error("Use new with constructor");
+class Book {
+    #id;
+    #title;
+    #author;
+    #pages;
+    #haveRead = false;
+
+    constructor(title, author, pages, haveRead) {
+        this.#id = crypto.randomUUID();
+        this.#title = title;
+        this.#author = author;
+        this.#pages = pages;
+        this.#haveRead = haveRead;
     }
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.haveRead = haveRead;
-    this.info = function () {
+
+    get id() {
+        return this.#id;
+    }
+
+    get title() {
+        return this.#title;
+    }
+
+    get author() {
+        return this.#author;
+    }
+
+    get pages() {
+        return this.#pages;
+    }
+
+    get haveRead() {
+        return this.#haveRead;
+    }
+
+    info() {
         let output = this.title + " by " + this.author + ", " + this.pages + ", ";
-        if (haveRead) {
+        if (this.#haveRead) {
             return output + "read";
         }
         return output + "not read yet";
-    };
-}
+    }
 
-Book.prototype.changeRead = function() {
-    this.haveRead = !this.haveRead;
-    console.log("test");
-};
+    changeRead() {
+        this.#haveRead = !this.#haveRead;
+        console.log("test");
+    }
+}
 
 function addBookToLibrary(title, author, pages, haveRead) {
     const book = new Book(title, author, pages, haveRead);
@@ -93,7 +119,7 @@ function showBook(book) {
     actionButton.dataset.id = book.id;
     actionButton.className = "action-btn";
 
-    const actionCell  = document.createElement("td");
+    const actionCell = document.createElement("td");
     actionCell.appendChild(actionButton);
 
 
@@ -103,9 +129,9 @@ function showBook(book) {
     removeButton.className = "remove-btn";
     removeButton.dataset.id = book.id;
 
-    const removeCell  = document.createElement("td");
+    const removeCell = document.createElement("td");
     removeCell.appendChild(removeButton);
-    
+
     tr.append(title);
     tr.append(author);
     tr.append(pages);
