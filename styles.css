@@ -71,3 +71,7 @@ h6 {
 form {
     display: none;
 }
+
+table {
+    text-align: center;
+}
