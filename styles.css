@@ -68,10 +68,37 @@ h6 {
     isolation: isolate;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    gap: 20px;
+    padding-top: 20px;
+}
+
 form {
     display: none;
+    position: absolute;
+    top: 275px;
+}
+
+form input {
+    margin: 10px;
+    border: 1px solid green;
+    border-radius: 2px;
+    outline: none;
 }
 
 table {
     text-align: center;
+}
+
+input:valid {
+
+}
+
+input:invalid {
+    border: 1px solid red;
+    outline: none;
 }
